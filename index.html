@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Palavra do Dia</title>
+</head>
+
+<body>
+    <div id="container-alerta"></div>
+    <div class="container">
+        <h2>Palavra do Dia</h2>
+        <div id="jogo">
+            <div class="linha linha0">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+            <div class="linha linha1">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+            <div class="linha linha2">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+            <div class="linha linha3">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+            <div class="linha linha4">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+            <div class="linha linha5">
+                <div class="letra letra0"></div>
+                <div class="letra letra1"></div>
+                <div class="letra letra2"></div>
+                <div class="letra letra3"></div>
+                <div class="letra letra4"></div>
+            </div>
+        </div>
+        <div id="teclado">
+            <div class="linha linha1">
+                <button class="tecla">q</button>
+                <button class="tecla">w</button>
+                <button class="tecla">e</button>
+                <button class="tecla">r</button>
+                <button class="tecla">t</button>
+                <button class="tecla">y</button>
+                <button class="tecla">u</button>
+                <button class="tecla">i</button>
+                <button class="tecla">o</button>
+                <button class="tecla">p</button>
+            </div>
+            <div class="linha linha2">
+                <button class="tecla">a</button>
+                <button class="tecla">s</button>
+                <button class="tecla">d</button>
+                <button class="tecla">f</button>
+                <button class="tecla">g</button>
+                <button class="tecla">h</button>
+                <button class="tecla">j</button>
+                <button class="tecla">k</button>
+                <button class="tecla">l</button>
+            </div>
+            <div class="linha linha3">
+                <button class="enter">enter</button>
+                <button class="tecla">z</button>
+                <button class="tecla">x</button>
+                <button class="tecla">c</button>
+                <button class="tecla">v</button>
+                <button class="tecla">b</button>
+                <button class="tecla">n</button>
+                <button class="tecla">m</button>
+                <button class="apagar">apagar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="palavras.js"></script>
+    <script src="jogo.js"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            let game = new jogo();
+            game.iniciar();
+        });
+    </script>
+</body>
+
+</html>

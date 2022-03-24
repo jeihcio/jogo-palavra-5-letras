@@ -1,0 +1,91 @@
+*,
+*::before,
+*::after 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+*
+    --cor-das-bordas: #ccc;
+    --cor-das-teclas: #d3d6da;
+    --cor-preta-das-bordas: #000;
+    --tamanho-monitor-letra: 58px
+
+body 
+    display: flex;
+    justify-content: center;
+
+#container-alerta
+    position: fixed;
+    width: 300px;    
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding-top: 60px;
+    background-color: transparent;
+    .alerta
+        background: #212121
+        color: #fff
+        padding: 10px 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+
+.container 
+    width: 500px
+    overflow: hidden
+
+    h2
+        border-bottom: 1px solid var(--cor-das-bordas);
+        text-align: center;
+        text-transform: uppercase;
+        padding: 10px
+        letter-spacing: 3px;
+
+#jogo
+    margin-top: 10px
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    .linha
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .letra
+            width: var(--tamanho-monitor-letra)
+            height: var(--tamanho-monitor-letra)
+            margin: 3px
+            border: 2px solid var(--cor-das-bordas)
+            text-align: center
+            line-height: calc(var(--tamanho-monitor-letra) - 2px)
+            font-size: 25px
+            font-weight: bold
+            text-transform: uppercase
+            transition-duration: 0.1s;
+        .letraDigitada 
+           border: 2px solid var(--cor-preta-das-bordas)
+           transition-duration: 0.1s;
+
+#teclado
+    margin-top: 10px
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    .linha
+        display: flex
+        justify-content: center
+        flex-wrap: wrap
+        button
+            display: inline-flex
+            background: var(--cor-das-teclas)
+            padding: 18px 15px
+            margin: 4px 3px
+            text-transform: uppercase
+            font-weight: 500
+            font-size: 13px
+            border-radius: 5px
+            border: none
+            
+            &:hover
+                cursor: pointer;
