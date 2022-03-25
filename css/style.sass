@@ -12,6 +12,10 @@
     --cor-preta-das-bordas: #000;
     --tamanho-monitor-letra: 58px
 
+    --cor-letra-errada: #787c7e
+    --cor-letra-certa-no-lugar-certo: #6aaa64
+    --cor-letra-certa-no-lugar-errado: #c9b458
+
 body 
     display: flex;
     justify-content: center;
@@ -65,7 +69,19 @@ body
             transition-duration: 0.1s;
         .letraDigitada 
            border: 2px solid var(--cor-preta-das-bordas)
-           transition-duration: 0.1s;
+           transition-duration: 0.3s;
+        .letraErrada
+            color: #fff;
+            border-color: var(--cor-letra-errada);
+            background-color: var(--cor-letra-errada);
+        .letraCertaNoLugarErrado
+            color: #fff;
+            border-color: var(--cor-letra-certa-no-lugar-errado);
+            background-color: var(--cor-letra-certa-no-lugar-errado);
+        .letraCertaNoLugarCerto
+            color: #fff;
+            border-color: var(--cor-letra-certa-no-lugar-certo);
+            background-color: var(--cor-letra-certa-no-lugar-certo);
 
 #teclado
     margin-top: 10px

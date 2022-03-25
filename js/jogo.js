@@ -6,6 +6,10 @@ let jogo = class {
         return this._palavraEscolhida;
     }
 
+    get palavraEscolhidaSemCaracterEspecial() {
+        return this.palavraEscolhida;
+    }
+
     get linhaAtual() {
         return this._monitorAtualDaLetra[0];
     }
@@ -31,6 +35,18 @@ let jogo = class {
         return "letraDigitada";
     }
 
+    get classeCSSLetraErrada() {
+        return "letraErrada";
+    }
+
+    get classseCSSLetraCertaNoLugarCerto() {
+        return "letraCertaNoLugarCerto";
+    }
+
+    get classeCSSLetraCertaNoLugarErrado() {
+        return "letraCertaNoLugarErrado";
+    }
+
     set monitoresDasLetras(valor) {
         this._monitorAtualDaLetra = valor;
     }
@@ -48,6 +64,12 @@ let jogo = class {
         this._limparMonitoresDeLetras();
     }
 
+    delay(callback, tempo) {
+        setTimeout(() => {
+            callback();
+        }, tempo);
+    }
+
     _alertar(mensagem) {
         let container = document.querySelector("#container-alerta");
         let alerta = document.createElement("div");
@@ -56,7 +78,7 @@ let jogo = class {
         alerta.innerHTML = mensagem;
 
         container.appendChild(alerta);
-        setTimeout(() => {
+        this.delay(() => {
             container.removeChild(alerta);
         }, 1500);
     }
@@ -70,9 +92,14 @@ let jogo = class {
         return document.querySelector(query);
     }
 
+    _getLetra(linha, letra) {
+        let monitor = this._getMonitorLetra(linha, letra);
+        return monitor.innerHTML;
+    }
+
     _configurarMonitorAtualDaLetra(linha, letra) {
         let novoValor = [linha, letra];
-        this.monitoresDasLetras = novoValor
+        this.monitoresDasLetras = novoValor;
     }
 
     _limparMonitoresDeLetras() {
@@ -129,6 +156,16 @@ let jogo = class {
         return true;
     }
 
+    _contemLetraNaPalavraEscolhida(letra) {
+        let palavra = this.palavraEscolhidaSemCaracterEspecial;
+        return (palavra.indexOf(letra) > -1);
+    }
+
+    _posicaoDaLetraNaPalavraEscolhida(letra) {
+        let palavra = this.palavraEscolhidaSemCaracterEspecial;
+        return palavra.indexOf(letra);
+    }
+
     _configurarTeclasNormais() {
         let teclas = document.querySelectorAll('.tecla');
 
@@ -145,8 +182,45 @@ let jogo = class {
         let tecla = document.querySelector('.enter');
 
         tecla.addEventListener('click', () => {
-            if (!this._isPreencheuTodasAsLetrasDaLinha())
+            let palavraDitigtada = "";
+
+            if (!this._isPreencheuTodasAsLetrasDaLinha()) {
                 this._alertar("Preencha todas as letras!");
+                return;
+            }
+
+            for (let index = 0; index < 5; index++) {
+                let linha = this.linhaAtual;
+                let letra = this._getLetra(linha, index);
+                let monitor = this._getMonitorLetra(linha, index);
+
+                palavraDitigtada += letra;
+
+                if (this._contemLetraNaPalavraEscolhida(letra)) {
+                    let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra);
+
+                    if (posicaoDaLetra == index)
+                        monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto)
+                    else
+                        monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
+
+                } else {
+                    monitor.classList.add(this.classeCSSLetraErrada);
+                }
+            }
+
+            if (palavraDitigtada == this.palavraEscolhidaSemCaracterEspecial)
+                this._alertar(`${this.palavraEscolhida.toUpperCase()}, Você acertou!`)
+            else {
+                this._pularLetraDoMonitor();
+            }
+
+            if (this.linhaAtual == 5 && this.letraAtual == 0) {
+                this._alertar(this.palavraEscolhida.toUpperCase());
+                this.delay(() => {
+                    this.reset();
+                }, 1500);
+            }
         });
     }
 

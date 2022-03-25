@@ -13,6 +13,9 @@
   --cor-das-teclas: #d3d6da;
   --cor-preta-das-bordas: #000;
   --tamanho-monitor-letra: 58px;
+  --cor-letra-errada: #787c7e;
+  --cor-letra-certa-no-lugar-certo: #6aaa64;
+  --cor-letra-certa-no-lugar-errado: #c9b458;
 }
 
 body {
@@ -103,8 +106,26 @@ body {
 
 #jogo .linha .letraDigitada {
   border: 2px solid var(--cor-preta-das-bordas);
-  -webkit-transition-duration: 0.1s;
-          transition-duration: 0.1s;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+}
+
+#jogo .linha .letraErrada {
+  color: #fff;
+  border-color: var(--cor-letra-errada);
+  background-color: var(--cor-letra-errada);
+}
+
+#jogo .linha .letraCertaNoLugarErrado {
+  color: #fff;
+  border-color: var(--cor-letra-certa-no-lugar-errado);
+  background-color: var(--cor-letra-certa-no-lugar-errado);
+}
+
+#jogo .linha .letraCertaNoLugarCerto {
+  color: #fff;
+  border-color: var(--cor-letra-certa-no-lugar-certo);
+  background-color: var(--cor-letra-certa-no-lugar-certo);
 }
 
 #teclado {
