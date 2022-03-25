@@ -114,10 +114,12 @@ let jogo = class {
 
         monitoresDasLetras.forEach((element) => {
             element.innerHTML = '';
-            element.classList.remove(this.classeCSSLetraDigitada);
-            element.classList.remove(this.classeCSSLetraErrada);
-            element.classList.remove(this.classseCSSLetraCertaNoLugarCerto);
-            element.classList.remove(this.classeCSSLetraCertaNoLugarErrado);
+            element.classList.remove(
+                this.classeCSSLetraDigitada,
+                this.classeCSSLetraErrada,
+                this.classseCSSLetraCertaNoLugarCerto,
+                this.classeCSSLetraCertaNoLugarErrado
+            );
         });
     }
 
