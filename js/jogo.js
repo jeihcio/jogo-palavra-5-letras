@@ -149,6 +149,11 @@ let jogo = class {
         this._configurarMonitorAtualDaLetra(this.linhaAtual, letra);
     }
 
+    _pularLinhaDoMonitor() {
+        let linha = Math.min(this.linhaAtual + 1, 6);
+        this._configurarMonitorAtualDaLetra(linha, 0);
+    }
+
     _retornarLetraDoMonitor() {
         let letra = Math.max(this.letraAtual - 1, 0);
         this._configurarMonitorAtualDaLetra(this.linhaAtual, letra);
@@ -238,10 +243,10 @@ let jogo = class {
                     this.reset();
                 }, 1500);
             } else {
-                this._pularLetraDoMonitor();
+                this._pularLinhaDoMonitor();
             }
 
-            if (this.linhaAtual == 5 && this.letraAtual == 0) {
+            if (this.linhaAtual == 6 && this.letraAtual == 0) {
                 this._alertar(this.palavraEscolhida.toUpperCase());
                 this.delay(() => {
                     this.reset();
