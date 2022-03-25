@@ -241,7 +241,7 @@ let jogo = class {
                 this._alertar(`${this.palavraEscolhida.toUpperCase()}, Você acertou!`);
                 this.delay(() => {
                     this.reset();
-                }, 2500);
+                }, 3000);
             } else {
                 this._pularLinhaDoMonitor();
             }
