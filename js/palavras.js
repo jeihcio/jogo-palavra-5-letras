@@ -20,7 +20,6 @@ let dicionarioPalavras = class {
     }
 
     escolherUmaPalavraAleatoriamente() {
-        return "avião";
         let array = this.listaPalavras;
         return array[Math.floor(Math.random() * array.length)];
     }
