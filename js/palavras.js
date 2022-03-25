@@ -20,7 +20,7 @@ let dicionarioPalavras = class {
     }
 
     escolherUmaPalavraAleatoriamente() {
-        return "carro";
+        return "avião";
 
 
         let array = this.listaPalavras;
@@ -28,20 +28,8 @@ let dicionarioPalavras = class {
     }
 
     isPalavraValida(palavra) {
-        return true;
         let lista = this.listaPalavrasSemCaracterEspecial;
         return (lista.indexOf(palavra) > -1);
-    }
-
-    quantidadeDeVezesQueUmaLetraApareceNaPalavra(letra, palavra) {
-        let ocorrencias = 0;
-        for (let i = 0, j = palavra.length; i < j; i++) {
-            if (palavra[i].toLowerCase() == letra) {
-                ocorrencias++;
-            }
-        }
-
-        return ocorrencias;
     }
 
     _getListaPalavrasSemCaracterEspecial() {

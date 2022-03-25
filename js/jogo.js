@@ -173,14 +173,14 @@ let jogo = class {
         return true;
     }
 
-    _contemLetraNaPalavraEscolhida(letra, fromIndex) {
+    _contemLetraNaPalavraEscolhida(letra) {
         let palavra = this.palavraEscolhidaSemCaracterEspecial;
-        return (palavra.indexOf(letra, fromIndex) > -1);
+        return (palavra.indexOf(letra) > -1);
     }
 
-    _posicaoDaLetraNaPalavraEscolhida(letra, fromIndex) {
+    _posicaoDaLetraNaPalavraEscolhida(letra) {
         let palavra = this.palavraEscolhidaSemCaracterEspecial;
-        return palavra.indexOf(letra, fromIndex);
+        return palavra.indexOf(letra);
     }
 
     _configurarTeclasNormais() {
@@ -200,7 +200,6 @@ let jogo = class {
 
         tecla.addEventListener('click', () => {
             let palavraDigitada = "";
-            let letrasCertasDigitadas = "";
 
             if (!this._isPreencheuTodasAsLetrasDaLinha()) {
                 this._alertar("Preencha todas as letras!");
@@ -224,61 +223,14 @@ let jogo = class {
                 let letra = this._getLetra(linha, index);
                 let monitor = this._getMonitorLetra(linha, index);
 
-                if (this._contemLetraNaPalavraEscolhida(letra, 0)) {
-                    let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra, 0);
+                if (this._contemLetraNaPalavraEscolhida(letra)) {
+                    let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra);
 
                     if (posicaoDaLetra == index) {
                         monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto);
                     } else {
-                        posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra, index);
-
-                        let quantidadeDeVezesQueUmaLetraApareceNaPalavra =
-                            this.dicionario.quantidadeDeVezesQueUmaLetraApareceNaPalavra(
-                                letra,
-                                this.palavraEscolhidaSemCaracterEspecial
-                            );
-
-                        let quantidadeDeVezesQueUmaLetraApareceNasLetrasCertasDigitadas =
-                            this.dicionario.quantidadeDeVezesQueUmaLetraApareceNaPalavra(
-                                letra,
-                                letrasCertasDigitadas
-                            );
-
-                        if (posicaoDaLetra == index)
-                            monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto)
-                        else {
-                            let digitouALetraMenosVezesQueApareceNaPalavra =
-                                (quantidadeDeVezesQueUmaLetraApareceNasLetrasCertasDigitadas < quantidadeDeVezesQueUmaLetraApareceNaPalavra);
-
-                            if (digitouALetraMenosVezesQueApareceNaPalavra) {
-                                let posicaoDaLetraNaPalavraEscolhida =
-                                    this._posicaoDaLetraNaPalavraEscolhida(letra, index);
-
-                                let letraDaPalavraEscolhidaNessaPosicao =
-                                    this.palavraEscolhidaSemCaracterEspecial[posicaoDaLetraNaPalavraEscolhida];
-
-                                if (letra != letraDaPalavraEscolhidaNessaPosicao) {
-                                    monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
-                                } else {
-                                    let quantidadeDeVezesQueALetraFoiDigitada =
-                                        this.dicionario.quantidadeDeVezesQueUmaLetraApareceNaPalavra(
-                                            letra,
-                                            palavraDigitada
-                                        );
-
-                                    if (quantidadeDeVezesQueUmaLetraApareceNasLetrasCertasDigitadas < quantidadeDeVezesQueALetraFoiDigitada) {
-                                        monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
-                                    } else {
-                                        monitor.classList.add(this.classeCSSLetraErrada);
-                                    }
-                                }
-                            } else {
-                                monitor.classList.add(this.classeCSSLetraErrada);
-                            }
-                        }
+                        monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
                     }
-
-                    letrasCertasDigitadas += letra;
 
                 } else {
                     monitor.classList.add(this.classeCSSLetraErrada);
