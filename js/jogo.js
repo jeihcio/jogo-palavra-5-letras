@@ -173,14 +173,14 @@ let jogo = class {
         return true;
     }
 
-    _contemLetraNaPalavraEscolhida(letra) {
+    _contemLetraNaPalavraEscolhida(letra, fromIndex) {
         let palavra = this.palavraEscolhidaSemCaracterEspecial;
-        return (palavra.indexOf(letra) > -1);
+        return (palavra.indexOf(letra, fromIndex) > -1);
     }
 
-    _posicaoDaLetraNaPalavraEscolhida(letra) {
+    _posicaoDaLetraNaPalavraEscolhida(letra, fromIndex) {
         let palavra = this.palavraEscolhidaSemCaracterEspecial;
-        return palavra.indexOf(letra);
+        return palavra.indexOf(letra, fromIndex);
     }
 
     _configurarTeclasNormais() {
@@ -223,13 +223,18 @@ let jogo = class {
                 let letra = this._getLetra(linha, index);
                 let monitor = this._getMonitorLetra(linha, index);
 
-                if (this._contemLetraNaPalavraEscolhida(letra)) {
-                    let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra);
+                if (this._contemLetraNaPalavraEscolhida(letra, 0)) {
+                    let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra, 0);
 
                     if (posicaoDaLetra == index) {
                         monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto);
                     } else {
-                        monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
+                        posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra, index);
+
+                        if (posicaoDaLetra == index)
+                            monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto)
+                        else
+                            monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
                     }
 
                 } else {
