@@ -1,22 +1,47 @@
 let dicionarioPalavras = class {
     _listaPalavras = [];
+    _listaPalavrasSemCaracterEspecial = [];
 
     constructor() {
         this._listaPalavras = this._getListaPalavras();
+        this._listaPalavrasSemCaracterEspecial = this._getListaPalavrasSemCaracterEspecial();
     }
 
     get listaPalavras() {
         return this._listaPalavras;
     }
 
+    get listaPalavrasSemCaracterEspecial() {
+        return this._listaPalavrasSemCaracterEspecial;
+    }
+
+    removerCaracterEspecial(palavra) {
+        return palavra.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    }
+
     escolherUmaPalavraAleatoriamente() {
+        return "avião";
+
+
         let array = this.listaPalavras;
         return array[Math.floor(Math.random() * array.length)];
     }
 
     isPalavraValida(palavra) {
-        let lista = this.listaPalavras;
+        let lista = this.listaPalavrasSemCaracterEspecial;
         return (lista.indexOf(palavra) > -1);
+    }
+
+    _getListaPalavrasSemCaracterEspecial() {
+        let listaResultado = [];
+        let lista = this.listaPalavras;
+
+        for (let index = 0; index < lista.length; index++) {
+            let palavraSemCaracterEspecial = this.removerCaracterEspecial(lista[index]);
+            listaResultado.push(palavraSemCaracterEspecial);
+        }
+
+        return listaResultado;
     }
 
     _getListaPalavras() {

@@ -16,7 +16,7 @@ let jogo = class {
     }
 
     get palavraEscolhidaSemCaracterEspecial() {
-        return this.palavraEscolhida;
+        return this.dicionario.removerCaracterEspecial(this.palavraEscolhida);
     }
 
     get linhaAtual() {
@@ -241,7 +241,7 @@ let jogo = class {
                 this._alertar(`${this.palavraEscolhida.toUpperCase()}, Você acertou!`);
                 this.delay(() => {
                     this.reset();
-                }, 1500);
+                }, 2500);
             } else {
                 this._pularLinhaDoMonitor();
             }
