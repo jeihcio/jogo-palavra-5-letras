@@ -2,16 +2,16 @@ let jogo = class {
     _palavraEscolhida = "";
     _monitorAtualDaLetra = [0, 0];
 
+    get palavraEscolhida() {
+        return this._palavraEscolhida;
+    }
+
     get linhaAtual() {
         return this._monitorAtualDaLetra[0];
     }
 
     get letraAtual() {
         return this._monitorAtualDaLetra[1];
-    }
-
-    get palavraEscolhida() {
-        return this._palavraEscolhida;
     }
 
     get queryMonitorAtual() {
@@ -25,6 +25,10 @@ let jogo = class {
     get elementoAtual() {
         let query = this.queryMonitorAtual;
         return document.querySelector(query);
+    }
+
+    get classeCSSLetraDigitada() {
+        return "letraDigitada";
     }
 
     set monitoresDasLetras(valor) {
@@ -74,8 +78,9 @@ let jogo = class {
     _limparMonitoresDeLetras() {
         let monitoresDasLetras = document.querySelectorAll('.letra');
 
-        monitoresDasLetras.forEach((element, index) => {
-            monitoresDasLetras.innerHTML = '#';
+        monitoresDasLetras.forEach((element) => {
+            element.innerHTML = '';
+            element.classList.remove(this.classeCSSLetraDigitada);
         });
     }
 
@@ -89,13 +94,13 @@ let jogo = class {
 
         if (elemento != null) {
             elemento.innerHTML = letra;
-            elemento.classList.toggle('letraDigitada');
+            elemento.classList.toggle(this.classeCSSLetraDigitada);
         }
     }
 
     _apagarLetraNoMonitor() {
         let elemento = this.elementoAtual;
-        if (elemento.classList.contains("letraDigitada")) {
+        if (elemento.classList.contains(this.classeCSSLetraDigitada)) {
             this._exibirLetraNoMonitor("");
         }
     }
