@@ -1,10 +1,25 @@
-let dicionario = class {
+let dicionarioPalavras = class {
+    _listaPalavras = [];
+
+    constructor() {
+        this._listaPalavras = this._getListaPalavras();
+    }
+
+    get listaPalavras() {
+        return this._listaPalavras;
+    }
+
     escolherUmaPalavraAleatoriamente() {
-        let array = this.getListaPalavras();
+        let array = this.listaPalavras;
         return array[Math.floor(Math.random() * array.length)];
     }
 
-    getListaPalavras() {
+    isPalavraValida(palavra) {
+        let lista = this.listaPalavras;
+        return (lista.indexOf(palavra) > -1);
+    }
+
+    _getListaPalavras() {
         return [
             "abade", "abafa", "abafe", "abafo", "abafá", "abala", "abale", "abalo", "abalá", "abana",
             "abane", "abano", "abaná", "abata", "abate", "abati", "abato", "abatê", "abduz", "abeto",

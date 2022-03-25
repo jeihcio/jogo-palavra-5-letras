@@ -1,6 +1,15 @@
 let jogo = class {
     _palavraEscolhida = "";
     _monitorAtualDaLetra = [0, 0];
+    _dicionario = {};
+
+    constructor() {
+        this._dicionario = new dicionarioPalavras();
+    }
+
+    get dicionario() {
+        return this._dicionario;
+    }
 
     get palavraEscolhida() {
         return this._palavraEscolhida;
@@ -54,8 +63,6 @@ let jogo = class {
     iniciar() {
         this._escolherPalavra();
         this._configurarTeclado();
-
-        console.info(this.palavraEscolhida);
     }
 
     reset() {
@@ -108,12 +115,15 @@ let jogo = class {
         monitoresDasLetras.forEach((element) => {
             element.innerHTML = '';
             element.classList.remove(this.classeCSSLetraDigitada);
+            element.classList.remove(this.classeCSSLetraErrada);
+            element.classList.remove(this.classseCSSLetraCertaNoLugarCerto);
+            element.classList.remove(this.classeCSSLetraCertaNoLugarErrado);
         });
     }
 
     _escolherPalavra() {
-        let palavras = new dicionario();
-        this._palavraEscolhida = palavras.escolherUmaPalavraAleatoriamente();
+        this._palavraEscolhida = this.dicionario.escolherUmaPalavraAleatoriamente();
+        console.info(this.palavraEscolhida);
     }
 
     _exibirLetraNoMonitor(letra) {
@@ -182,7 +192,7 @@ let jogo = class {
         let tecla = document.querySelector('.enter');
 
         tecla.addEventListener('click', () => {
-            let palavraDitigtada = "";
+            let palavraDigitada = "";
 
             if (!this._isPreencheuTodasAsLetrasDaLinha()) {
                 this._alertar("Preencha todas as letras!");
@@ -192,26 +202,40 @@ let jogo = class {
             for (let index = 0; index < 5; index++) {
                 let linha = this.linhaAtual;
                 let letra = this._getLetra(linha, index);
-                let monitor = this._getMonitorLetra(linha, index);
 
-                palavraDitigtada += letra;
+                palavraDigitada += letra;
+            }
+
+            if (!this.dicionario.isPalavraValida(palavraDigitada)) {
+                this._alertar("Palavra inválida!");
+                return;
+            }
+
+            for (let index = 0; index < 5; index++) {
+                let linha = this.linhaAtual;
+                let letra = this._getLetra(linha, index);
+                let monitor = this._getMonitorLetra(linha, index);
 
                 if (this._contemLetraNaPalavraEscolhida(letra)) {
                     let posicaoDaLetra = this._posicaoDaLetraNaPalavraEscolhida(letra);
 
-                    if (posicaoDaLetra == index)
-                        monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto)
-                    else
+                    if (posicaoDaLetra == index) {
+                        monitor.classList.add(this.classseCSSLetraCertaNoLugarCerto);
+                    } else {
                         monitor.classList.add(this.classeCSSLetraCertaNoLugarErrado);
+                    }
 
                 } else {
                     monitor.classList.add(this.classeCSSLetraErrada);
                 }
             }
 
-            if (palavraDitigtada == this.palavraEscolhidaSemCaracterEspecial)
-                this._alertar(`${this.palavraEscolhida.toUpperCase()}, Você acertou!`)
-            else {
+            if (palavraDigitada == this.palavraEscolhidaSemCaracterEspecial) {
+                this._alertar(`${this.palavraEscolhida.toUpperCase()}, Você acertou!`);
+                this.delay(() => {
+                    this.reset();
+                }, 1500);
+            } else {
                 this._pularLetraDoMonitor();
             }
 
